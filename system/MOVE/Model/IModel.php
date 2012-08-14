@@ -1,6 +1,9 @@
 <?php
 /**
  * This interface is model
+ * It can check the dataType of attributes ,is it right?
+ * but this class is not connect db or api, the function of connection 
+ * do by operator
  * @author haiming
  */
 
@@ -22,5 +25,5 @@ interface IModel {
 	 * This function is check model all atttibutes
 	 * @return boolean 
 	 */
-	public fucntion checkAllData();
+	public function checkAllData();
 }
