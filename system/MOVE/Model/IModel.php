@@ -22,5 +22,5 @@ interface IModel {
 	 * This function is check model all atttibutes
 	 * @return boolean 
 	 */
-	public fucntion checkAllData();
+	public function checkAllData();
 }
