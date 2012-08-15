@@ -1,9 +1,12 @@
 <?php
 /**
  * This interface is model
+<<<<<<< HEAD
  * It can check the dataType of attributes ,is it right?
  * but this class is not connect db or api, the function of connection 
  * do by operator
+=======
+>>>>>>> 27c7d5831e647760e1cbf8707f35d36d3bccae03
  * @author haiming
  */
 
