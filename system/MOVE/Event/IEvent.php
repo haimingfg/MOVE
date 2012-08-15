@@ -12,5 +12,4 @@ interface IEvent {
 
 
 	public function launchEvent();
-
 }

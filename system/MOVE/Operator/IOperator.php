@@ -13,6 +13,12 @@ interface IOperator{
 	 * @return null
 	 */
 	public function loadModel($modelName);
+
+	/**
+	 * load Sub Operator
+	 *
+	 */
+	public function loadSubOperator();
 	
 	/**
 	 * load and show View
