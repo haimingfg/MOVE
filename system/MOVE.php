@@ -7,7 +7,7 @@
  */
 namespace MOVE;
 
-use MOVE\Exception;
+use MOVE\Exception\MOVEException;
 
 class MOVE {
 	
@@ -17,7 +17,7 @@ class MOVE {
 
 	public static $SYSPATH = NULL;
 
-	private static $__loadFiles = NULL;
+	private static $__loadFiles = array();
 	/**
 	 * static auto load Class
 	 * @param string $className
@@ -26,12 +26,12 @@ class MOVE {
 	public static function loadClass($className){
 		try {
 			// TODO
-			$fileAndClassName = $className;
+			$fileAndClassName = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 
 			$fileAndClassNameWithExt = $fileAndClassName . '.' . self::$EXT;
 
 			$realAppPath = realpath(self::$APPPATH . '/' . $fileAndClassNameWithExt);
-			var_dump(self::$SYSPATH); var_dump($fileAndClassNameWithExt);	
+			
 			$loadFile = false;
 			if ( FALSE !== $realAppPath ) {
 				$loadFile = $realAppPath;
@@ -39,8 +39,13 @@ class MOVE {
 			       	$realSysPath = realpath(self::$SYSPATH . '/' . $fileAndClassNameWithExt); 
 				if ( FALSE !== $realSysPath ) $loadFile = $realSysPath;
 			}
-			
-			if ( false === $loadFile )throw new MOVEException('this file can\'t find');
+
+			if ( false === $loadFile ) 
+				throw new MOVEException('The :className class can\'t find in path :path', 
+								array(
+									'className'	=> $className,
+									'path' 		=> $fileAndClassNameWithExt
+							));
 
 			self::loadFile($loadFile);
 		
@@ -57,7 +62,7 @@ class MOVE {
 	 */
 	public static function loadFile($file){
 		if ( !in_array( $file, self::$__loadFiles) ) {
-				array_push($file, self::$__loadFiles);
+				array_push( self::$__loadFiles, $file );
 				require $file;
 		}
 	}

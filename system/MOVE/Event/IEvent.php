@@ -4,7 +4,7 @@
  *
  */
 
-namespace MOVE/Event;
+namespace MOVE\Event;
 
 interface IEvent {
 	
