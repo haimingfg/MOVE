@@ -5,7 +5,7 @@
 
 namespace MOVE\Operator;
 
-interface class IIo {
+interface class IFileIo {
 
 	public function read();
 
