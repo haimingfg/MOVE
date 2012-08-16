@@ -6,7 +6,7 @@
  *
  */
 
-namespace MOVE/View
+namespace MOVE\View
 
 interface IView {
 

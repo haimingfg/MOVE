@@ -7,7 +7,7 @@
  * @author haiming
  */
 
-namespace MOVE/Model;
+namespace MOVE\Model;
 
 
 interface IModel {

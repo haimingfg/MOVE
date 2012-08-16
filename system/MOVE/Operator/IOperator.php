@@ -3,7 +3,9 @@
  * This is Operator Interface
  *
  */
-namespace MOVE/Operator;
+namespace MOVE\Operator;
+
+use MOVE\Model\IModel;
 
 interface IOperator{
 
@@ -12,7 +14,7 @@ interface IOperator{
 	 * @param string $modelName
 	 * @return null
 	 */
-	public function loadModel($modelName);
+	public function loadModel(IModel $modelName);
 
 	/**
 	 * load Sub Operator
