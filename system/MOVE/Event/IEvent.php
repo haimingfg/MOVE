@@ -5,11 +5,17 @@
  */
 
 namespace MOVE\Event;
-
+use MOVE\Operator\IOperator;
 interface IEvent {
+	/**
+	 * This function use to bind deal operation
+	 *
+	 */
+	public function bind(IOperator $operator);
+
 	
-	public function notify();
-
-
-	public function launchEvent();
+	/**
+	 * This function use to run Event
+	 */
+	public function trigger();
 }
