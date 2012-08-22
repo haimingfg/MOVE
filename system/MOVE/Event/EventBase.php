@@ -1,9 +1,9 @@
 <?php
 /**
- * Abtract Event
+ * Abstract Event
  */
 namespace MOVE\Event;
-
+use MOVE\Operator\IOPerator;
 abstract class EventBase implements IEvent {
 
 	protected $_bindOperator = null;
