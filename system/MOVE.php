@@ -60,7 +60,6 @@ class MOVE {
 	 * return boolean;
 	 */
 	public static function loadFile($file){
-
 		$file = realpath($file);
 		if ( FALSE === $file ) return FALSE;
 		
