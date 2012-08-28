@@ -2,6 +2,10 @@
 
 namespace MOVE\Event;
 
-interface class IListen {
-	public function listen();
+interface IListen {
+	public static function start();
+
+	public static function pause();
+
+	public static function stop();
 }
