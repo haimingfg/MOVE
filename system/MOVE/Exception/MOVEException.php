@@ -17,4 +17,16 @@ class MOVEException extends \Exception{
 		}
 		parent::__construct($message);
 	}
+
+	public static function catching(\Exception $exception){
+
+		
+	}
+
+	public static function getTrace(){
+		$debug_backtrace = debug_backtrace();	
+
+		array_unshift($debug_backtrace);
+		var_dump($debug_backtrace);	
+	}
 }
