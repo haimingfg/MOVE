@@ -8,14 +8,13 @@
 namespace MOVE;
 
 use MOVE\Exception\MOVEException;
-
 class MOVE {
 	
 	public static $EXT = 'php';
 	
 	public static $APPPATH = NULL;
 
-	public static $SYSPATH = NULL;
+	public static $SYSPATH = __DIR__;
 
 	public static $coreDir = 'MOVE';
 

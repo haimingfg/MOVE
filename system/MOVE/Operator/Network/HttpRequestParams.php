@@ -1,7 +1,7 @@
 <?php
 
 namespace MOVE\Operator\Network;
-
+use MOVE\Exception\EventException;
 class HttpRequestParams {
 	protected $_Get = NULL;
 
@@ -19,12 +19,13 @@ class HttpRequestParams {
 		$this->_Cookie = $_COOKIE;
 		$this->_Server = $_SERVER;
 		$this->_Files = $_FILES;
-		unset($_GET, $_POST, $_SERVER, $_FILES);
+	//	unset($_GET, $_POST, $_SERVER, $_FILES);
 	}
 
 	public function __call( $name, $arguments ){
 		$getType = substr($name, 0, 3);
 		if ( 'get' === $getType ) {
+
 			$method = NULL;
 			// getGet
 			$dataType = substr($name, 3);
@@ -38,16 +39,12 @@ class HttpRequestParams {
 				$methods = $this->_Server;
 			} elseif ( 'Files' === $dataType ) {
 				$methods = $this->_FILES;
-			}
-
-			if ( false === empty( $arguments[0] ) ) {
-				return isset($methods[$arguments[0]]) ? $methods[$arguments[0]]: NULL;
 			} else {
-				return $methods;
+				throw new EventException('can');	
 			}
-			
-		} else {
-			return null;
+				
+			return isset($arguments[0], $methods[$arguments[0]]) ? $methods[$arguments[0]]: $methods;
 		}
+	
 	}
 }

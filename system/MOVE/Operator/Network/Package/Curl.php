@@ -36,7 +36,6 @@ class Curl extends RequestBase {
 	}
 
 	protected function request() {
-		$reponse = curl_exec($this->_handler);	
-		return $reponse;
+		 return curl_exec($this->_handler);	
 	}
 }
