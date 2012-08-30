@@ -42,8 +42,11 @@ class HttpRequestParams {
 			} else {
 				throw new EventException('can');	
 			}
-				
-			return isset($arguments[0], $methods[$arguments[0]]) ? $methods[$arguments[0]]: $methods;
+			if ( isset( $arguments[0] ) ) {
+				return isset( $methods[$arguments[0]] ) ? $methods[$arguments[0]] : NULL;
+			} else {
+				return $methods;
+			}	
 		}
 	
 	}

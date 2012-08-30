@@ -27,21 +27,15 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	public function getReferer(){
 		return $this->getServer('HTTP_REFERER');
 	}
-	
-	public function getRequestUri(){
-		$originRequestUri = $this->getServer('REQUEST_URI');
-		if ( isset($originRequestUri) ) {
-			
-		} else {
-			return static::$pathSeperateStr;
-		}
-	}
 
 	public function getRunScript(){
-		$originScript = $this->getserver('SCRIPT_NAME');
+		$originScript = $this->getServer('SCRIPT_NAME');
 		
 		if ( false !== strpos($originScript, static::$pathSeperateStr) ) {
-			
+			// find last seperate lash
+			$lastLashPos = strrpos($originScript, static::$pathSeperateStr);
+			$scriptFile = substr($originScript, $lastLashPos + 1);
+			return $scriptFile;	
 		} else {
 			return null;
 		}
@@ -54,10 +48,42 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	}
 
 	public function getHostUri(){
-		$requestUri = $this->getRequestUri();
+		return $this->getBaseHost() . $this->getInputFileBeforePath();
+	}
+	
+	/**
+	 * find input file the back of path
+	 */
+	public function getInputFileAfterPath(){
+		$path = NULL;
+		if ( NULL !== $this->getServer('PATH_INFO') ) {
+			$path = $this->getServer('PATH_INFO');	
+			//$path = preg_replace('/^\/+|\/+$/', '/', $path);
+		} else {
+			$path = $this->getInputFilePathInfo(true);
+		}
+		return $path;
 	}
 
-	public function pathInfo(){
+	public function getInputFileBeforePath(){
+		return $this->getInputFilePathInfo(false);
+	}
+
+	private function getInputFilePathInfo($isAfter){
+		$inputFile = $this->getRunScript();
+		$path_arr = explode($inputFile, $this->getServer('REQUEST_URI'));
 		
+		$firPath = array_shift($path_arr);
+		
+		if ( 1 < count($path_arr) ) {
+			$secPath = implode($inputFile, $path_arr);	
+		} else {
+			$secPath = NULL;
+		}	
+
+		$path = true === $isAfter ? $secPath : $firPath;
+		
+		$path = preg_replace('/^\/+|\/+$/', '/', $path);
+		return $path;
 	}
 }

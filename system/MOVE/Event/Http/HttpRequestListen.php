@@ -13,8 +13,7 @@ class HttpRequestListen implements IListen {
 	public static function start() {
 		$chr = new ClientHttpRequest();
 		echo '<pre>';
-		var_dump($chr->getServer());
-		$chr->getHostRequestUri();
+		echo $chr->getHostUri();
 	}
 
 	public static function pause() {
