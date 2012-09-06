@@ -50,40 +50,52 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	public function getHostUri(){
 		return $this->getBaseHost() . $this->getInputFileBeforePath();
 	}
+
+	/**
+	 * get request uri
+	 * @param bool $needScript add runScript in this uri
+	 * @return string
+	 */
+	public function getResponseUri( $needScript = false ){
+		$uri = $this->getHostUri();
+		$AfterPath = $this->getInputFileAfterPath($needScript);
+		$uri .= $AfterPath;
+		return $uri;
+	}
 	
 	/**
 	 * find input file the back of path
 	 */
-	public function getInputFileAfterPath(){
+	public function getInputFileAfterPath($needScript = false){
 		$path = NULL;
-		if ( NULL !== $this->getServer('PATH_INFO') ) {
-			$path = $this->getServer('PATH_INFO');	
-			//$path = preg_replace('/^\/+|\/+$/', '/', $path);
-		} else {
-			$path = $this->getInputFilePathInfo(true);
-		}
+		$path = $this->getInputFilePathInfo(true, $needScript);
+		if ( false === $needScript ) $path = substr($path, 1);
 		return $path;
 	}
 
-	public function getInputFileBeforePath(){
-		return $this->getInputFilePathInfo(false);
+	public function getInputFileBeforePath($needScript = false){
+		return $this->getInputFilePathInfo(false, $needScript);
 	}
 
-	private function getInputFilePathInfo($isAfter){
+	private function getInputFilePathInfo($isAfter, $needScript = false){
 		$inputFile = $this->getRunScript();
 		$path_arr = explode($inputFile, $this->getServer('REQUEST_URI'));
 		
 		$firPath = array_shift($path_arr);
 		
-		if ( 1 < count($path_arr) ) {
+		if ( 0 < count($path_arr) ) {
 			$secPath = implode($inputFile, $path_arr);	
 		} else {
 			$secPath = NULL;
 		}	
 
-		$path = true === $isAfter ? $secPath : $firPath;
+		$path = true === $isAfter ? $secPath : $firPath; 
 		
+		$path = '/' . $path . '/';
 		$path = preg_replace('/^\/+|\/+$/', '/', $path);
+		if ( true === $needScript ) {
+		     $path =  true === $isAfter ? $inputFile . $path : $path . $inputFile;
+		}	
 		return $path;
 	}
 }
