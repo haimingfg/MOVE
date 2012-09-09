@@ -2,7 +2,7 @@
 
 namespace MOVE\Event;
 
-interface IListen {
+interface IListener {
 	public static function start();
 
 	public static function pause();

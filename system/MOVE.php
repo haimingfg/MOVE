@@ -40,7 +40,7 @@ class MOVE {
 				$filePath = self::$APPPATH . '/' . $fileAndClassNameWithExt;
 			}
 		
-
+			echo $filePath.'<br/>';
 			if ( FALSE === self::loadFile($filePath) )
 				throw new MOVEException('The :className class can\'t find in path :path', 
 							array(

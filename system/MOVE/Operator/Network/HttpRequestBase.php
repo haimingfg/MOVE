@@ -6,9 +6,15 @@ namespace MOVE\Operator\Network;
 abstract class HttpRequestBase extends HttpRequestParams {
 	
 	protected static $pathSeperateStr = '/';
+	
+	public function __construct(){
+		parent::__construct();
+	}
 
 	public function getProtocol() {
-		$isHttps = $this->getServer('HTTPS');
+		static $isHttps = null;
+		if ( is_null($isHttps) )
+			$isHttps = $this->getServer('HTTPS');
 		return isset($isHttps) ? 'https' : 'http' ;
 	}
 
@@ -30,7 +36,6 @@ abstract class HttpRequestBase extends HttpRequestParams {
 
 	public function getRunScript(){
 		$originScript = $this->getServer('SCRIPT_NAME');
-		
 		if ( false !== strpos($originScript, static::$pathSeperateStr) ) {
 			// find last seperate lash
 			$lastLashPos = strrpos($originScript, static::$pathSeperateStr);
@@ -44,11 +49,14 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	public function getBaseHost(){
 		$protocol = $this->getProtocol();
 		$host	= $this->getHttpHost();	
-		return $protocol.'://'.$host;
+		$url =  $protocol.'://'.$host;
+		return $url;
 	}
 
-	public function getHostUri(){
-		return $this->getBaseHost() . $this->getInputFileBeforePath();
+	public function getHostUrl($needScript = false){
+		$url = $this->getBaseHost() . $this->getInputFileBeforePath();
+		if ( true === $needScript ) $url.= $this->getRunScript();
+		return $url;
 	}
 
 	/**
@@ -56,9 +64,10 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	 * @param bool $needScript add runScript in this uri
 	 * @return string
 	 */
-	public function getResponseUri( $needScript = false ){
-		$uri = $this->getHostUri();
-		$AfterPath = $this->getInputFileAfterPath($needScript);
+	public function getResponseUrl( $needScript = false ){
+		$uri = $this->getHostUrl($needScript);
+		$AfterPath = $this->getInputFileAfterPath();
+		if ( false === $needScript ) $AfterPath = substr( $AfterPath, 1 );
 		$uri .= $AfterPath;
 		return $uri;
 	}
@@ -66,36 +75,36 @@ abstract class HttpRequestBase extends HttpRequestParams {
 	/**
 	 * find input file the back of path
 	 */
-	public function getInputFileAfterPath($needScript = false){
-		$path = NULL;
-		$path = $this->getInputFilePathInfo(true, $needScript);
-		if ( false === $needScript ) $path = substr($path, 1);
-		return $path;
+	public function getInputFileAfterPath(){
+		return 	$this->getInputFilePathInfo(true);
 	}
 
-	public function getInputFileBeforePath($needScript = false){
-		return $this->getInputFilePathInfo(false, $needScript);
+	public function getInputFileBeforePath(){
+		return $this->getInputFilePathInfo(false);
 	}
 
-	private function getInputFilePathInfo($isAfter, $needScript = false){
+	private function getInputFilePathInfo($isAfter){
 		$inputFile = $this->getRunScript();
 		$path_arr = explode($inputFile, $this->getServer('REQUEST_URI'));
-		
 		$firPath = array_shift($path_arr);
 		
-		if ( 0 < count($path_arr) ) {
-			$secPath = implode($inputFile, $path_arr);	
+		$path = null;	
+		if ( false === $isAfter ) {
+			$path = $firPath;
 		} else {
-			$secPath = NULL;
+			if ( 0 < count($path_arr) ) {
+				$path = implode($inputFile, $path_arr);	
+			
+				$QMPos = strpos($path, '?');
+				
+				if( false !== $QMPos ) {
+					$path = substr($path, 0, $QMPos);
+				}
+			}
 		}	
 
-		$path = true === $isAfter ? $secPath : $firPath; 
-		
 		$path = '/' . $path . '/';
 		$path = preg_replace('/^\/+|\/+$/', '/', $path);
-		if ( true === $needScript ) {
-		     $path =  true === $isAfter ? $inputFile . $path : $path . $inputFile;
-		}	
 		return $path;
 	}
 }

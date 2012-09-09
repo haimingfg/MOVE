@@ -1,9 +1,11 @@
 <?php
 use MOVE\MOVE;
-use MOVE\Event\Http\HttpRequestListen;
-
+use MOVE\Event\Http\HttpRequestListener;
 require_once __DIR__.'/../CoreBoot.php';
 
-MOVE::$APPPATH = __DIR__;
+MOVE::$APPPATH = realpath(__DIR__.'/../');
 
-HttpRequestListen::start();
+$routerRule = array(
+	'ask-[\d]' => array('event'=>'ask', 'param'=>array('[\d]' => 1), 'directory'=>'abc')
+);
+HttpRequestListener::start($routerRule);
