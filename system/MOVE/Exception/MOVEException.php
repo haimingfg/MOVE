@@ -17,9 +17,8 @@ class MOVEException extends \Exception{
 		}
 		parent::__construct($message);
 	}
-
-	public static function catching(\Exception $exception){
-
-		
+	
+	public static function handle(MOVEException $exception){
+		echo $exception->getMessage();
 	}
 }

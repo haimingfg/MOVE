@@ -26,7 +26,6 @@ class MOVE {
 	 */
 	public static function loadClass($className){
 		try {
-			// TODO
 			$fileAndClassName = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 			// whether is core directory
 			$slashName_arr = explode(DIRECTORY_SEPARATOR, $fileAndClassName);
@@ -40,7 +39,6 @@ class MOVE {
 				$filePath = self::$APPPATH . '/' . $fileAndClassNameWithExt;
 			}
 		
-			echo $filePath.'<br/>';
 			if ( FALSE === self::loadFile($filePath) )
 				throw new MOVEException('The :className class can\'t find in path :path', 
 							array(
@@ -62,11 +60,28 @@ class MOVE {
 		$file = realpath($file);
 		if ( FALSE === $file ) return FALSE;
 		
-		if ( !in_array( $file, self::$__loadFiles) ) {
+		if ( !in_array( $file, self::$__loadFiles ) ) {
 				array_push( self::$__loadFiles, $file );
 				require $file;
 		}
 
 		return TRUE;
+	}
+
+	public static function regLoad(){
+		spl_autoload_register(array('self', 'loadClass'));	
+	}
+
+	public static function regErrorHandler(){
+	}
+
+	public static function regExceptionHandler(){
+		set_exception_handler(array('MOVE\Exception\MOVEException','handle'));
+	}
+
+	public static function initialize(){
+		self::regLoad();
+		self::regExceptionHandler();
+		self::regErrorHandler();
 	}
 }
