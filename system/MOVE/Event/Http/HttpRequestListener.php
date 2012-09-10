@@ -7,7 +7,7 @@ namespace MOVE\Event\Http;
 
 use MOVE\Event\IListener;
 use MOVE\Operator\Network\ClientHttpRequest;
-
+use MOVE\Exception\EventException;
 class HttpRequestListener implements IListener {
 	
 	public static function start() {
@@ -16,10 +16,10 @@ class HttpRequestListener implements IListener {
 	}
 
 	public static function pause() {
-		echo 'pause';
+		throw new EventException('pause');
 	}
 
 	public static function stop() {
-		echo 'stop';
+		throw new EventException('stop');
 	}
 } 

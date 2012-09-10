@@ -6,7 +6,7 @@
  */
 
 namespace MOVE\Exception;
-
+use MOVE\Helpers\Debug;
 class MOVEException extends \Exception{
 
 	public function __construct($message = null, array $params = null){
@@ -19,6 +19,10 @@ class MOVEException extends \Exception{
 	}
 	
 	public static function handle(MOVEException $exception){
-		echo $exception->getMessage();
+		$traces = array();
+
+		do {
+			$msg = '';
+		} while ( $e = $exception->getPrevious() ) ;
 	}
 }
