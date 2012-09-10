@@ -69,6 +69,7 @@ abstract class HttpRequestBase extends HttpRequestParams {
 		$AfterPath = $this->getInputFileAfterPath();
 		if ( false === $needScript ) $AfterPath = substr( $AfterPath, 1 );
 		$uri .= $AfterPath;
+		throw new \MOVE\Exception\OperatorException('gh');
 		return $uri;
 	}
 	

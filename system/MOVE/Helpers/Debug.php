@@ -7,6 +7,12 @@ namespace MOVE\Helpers;
 
 class Debug {
 	public static $isWebApp = true;
+	
+	public static $isDebug = false;
+
+	public static function getNewLineMark(){
+		return true === self::$isWebApp ? "<br/>": "\r\n";	
+	}
 
 	public static function p(){
 		$args = func_get_args();
