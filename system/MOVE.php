@@ -54,7 +54,7 @@ class MOVE {
 	/**
 	 * require files 
 	 * @param string $file
-	 * return boolean;
+	 * return string;
 	 */
 	public static function loadFile($file){
 		$file = realpath($file);
@@ -65,7 +65,7 @@ class MOVE {
 				require $file;
 		}
 
-		return TRUE;
+		return self::$_loadFiles[$file];
 	}
 
 	public static function regLoad(){

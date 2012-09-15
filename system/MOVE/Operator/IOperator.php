@@ -4,9 +4,6 @@
  *
  */
 namespace MOVE\Operator;
-
-use MOVE\Model\IModel;
-
 interface IOperator{
 	/**
 	 * to do something

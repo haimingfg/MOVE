@@ -2,7 +2,7 @@
 use MOVE\MOVE;
 use MOVE\Event\Http\HttpRequestListener;
 use MOVE\Helpers\Debug;
-require_once __DIR__.'/../CoreBoot.php';
+require __DIR__.'/../coreboot.php';
 Debug::$isDebug = true;
 MOVE::$APPPATH = realpath(__DIR__.'/../');
 

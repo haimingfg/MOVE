@@ -6,7 +6,7 @@
 namespace MOVE\Operator;
 
 use MOVE\Operator\IOperator;
-
+use MOVE\Model\IModel;
 abstract class OperatorBase implements IOperator{
 
 	/**
