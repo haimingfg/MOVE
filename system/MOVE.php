@@ -64,8 +64,7 @@ class MOVE {
 				array_push( self::$__loadFiles, $file );
 				require $file;
 		}
-
-		return self::$_loadFiles[$file];
+		return $file;
 	}
 
 	public static function regLoad(){

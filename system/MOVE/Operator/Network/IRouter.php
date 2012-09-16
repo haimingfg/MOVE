@@ -5,9 +5,7 @@
  */
 namespace MOVE\Operator\Network;
 
-use MOVE\Operator\IOperator;
-
-interface IRouter implements IOperator {
+interface IRouter {
 	
-	protected function analyze();	
+	public function analyze();	
 }
