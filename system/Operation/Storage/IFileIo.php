@@ -3,7 +3,7 @@
  * This Interface Io file
  */
 
-namespace MOVE\Operator;
+namespace MOVE\Operation;
 
 interface class IFileIo {
 

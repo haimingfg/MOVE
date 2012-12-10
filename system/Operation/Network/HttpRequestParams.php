@@ -1,6 +1,6 @@
 <?php
 
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 use MOVE\Exception\EventException;
 class HttpRequestParams {
 	protected $_Get = NULL;

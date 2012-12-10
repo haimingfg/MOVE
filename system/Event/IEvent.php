@@ -5,13 +5,13 @@
  */
 
 namespace MOVE\Event;
-use MOVE\Operator\IOperator;
+use MOVE\Operation\IOperation;
 interface IEvent {
 	/**
 	 * This function use to bind deal operation
 	 *
 	 */
-	public function bind(IOperator $operator);
+	public function bind(IOperation $operator);
 
 	
 	/**

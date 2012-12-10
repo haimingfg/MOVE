@@ -2,7 +2,7 @@
 /**
  * This file is Http request param abstract class
  */
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 abstract class HttpRequestBase extends HttpRequestParams {
 	
 	protected static $pathSeperateStr = '/';
@@ -69,7 +69,7 @@ abstract class HttpRequestBase extends HttpRequestParams {
 		$AfterPath = $this->getInputFileAfterPath();
 		if ( false === $needScript ) $AfterPath = substr( $AfterPath, 1 );
 		$uri .= $AfterPath;
-		throw new \MOVE\Exception\OperatorException('gh');
+		throw new \MOVE\Exception\OperationException('gh');
 		return $uri;
 	}
 	

@@ -1,9 +1,9 @@
 <?php
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 
-use MOVE\Operator\IOperator;
+use MOVE\Operation\IOperation;
 
-interface IRequest extends IOperator{
+interface IRequest extends IOperation{
 	public function setParams(array $params = NULL);
 
 	public function setOptions(array $options = NULL);

@@ -2,7 +2,7 @@
 /**
  *
  */
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 abstract class RequestBase implements IRequest {
 	protected $_handler = NULL;
 

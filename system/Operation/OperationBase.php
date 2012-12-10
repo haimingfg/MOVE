@@ -3,11 +3,11 @@
  * 
  */
 
-namespace MOVE\Operator;
+namespace MOVE\Operation;
 
-use MOVE\Operator\IOperator;
+use MOVE\Operation\IOperation;
 use MOVE\Model\IModel;
-abstract class OperatorBase implements IOperator{
+abstract class OperationBase implements IOperation{
 
 	/**
 	 * @inherits

@@ -2,12 +2,12 @@
 /**
  * This file is deal network operation
  */
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 
-use MOVE\Operator\IOperator;
+use MOVE\Operation\IOperation;
 use MOVE\Helpers\Module;
-use MOVE\Exception\OperatorException;
-class Request Implements IOperator {
+use MOVE\Exception\OperationException;
+class Request Implements IOperation {
 
 	private $__delegation = NULL;
 
@@ -16,7 +16,7 @@ class Request Implements IOperator {
 		if( true === Module::checkModuleSupport('curl') ) {
 			$this->__delegation = new Package\Curl($url);	
 		}else{
-			throw new OperatorException('it\'s support curl module'); 
+			throw new OperationException('it\'s support curl module'); 
 		}
 
 		$this->runPrepare($params, $options, $method, $port);

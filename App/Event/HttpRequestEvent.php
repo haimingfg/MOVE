@@ -5,7 +5,7 @@
 namespace App\Event;
 
 use MOVE\Event\EventBase;
-use MOVE\Operator\Network\Request;
+use MOVE\Operation\Network\Request;
 
 class HttpRequestEvent extends EventBase {
 	

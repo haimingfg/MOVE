@@ -3,7 +3,7 @@
  * This is file get the $_GET, $_POST, $_FILES param
  */
 
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 
 class ClientHttpRequest extends HttpRequestBase{	
 

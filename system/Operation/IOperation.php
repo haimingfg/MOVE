@@ -1,10 +1,10 @@
 <?php
 /**
- * This is Operator Interface
+ * This is Operation Interface
  *
  */
-namespace MOVE\Operator;
-interface IOperator{
+namespace MOVE\Operation;
+interface IOperation{
 	/**
 	 * to do something
 	 */	

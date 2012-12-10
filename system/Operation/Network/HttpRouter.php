@@ -3,9 +3,9 @@
  * deal with http request path and run the event
  */
 
-namespace MOVE\Operator\Network;
-use MOVE\Operator\IOperator;
-class HttpRouter implements IRouter, IOperator{
+namespace MOVE\Operation\Network;
+use MOVE\Operation\IOperation;
+class HttpRouter implements IRouter, IOperation{
 	const FOUND = true;
 	
 	const NOFOUND = false;

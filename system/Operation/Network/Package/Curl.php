@@ -1,8 +1,8 @@
 <?php
 
-namespace MOVE\Operator\Network\Package;
+namespace MOVE\Operation\Network\Package;
 
-use MOVE\Operator\Network\RequestBase;
+use MOVE\Operation\Network\RequestBase;
 
 class Curl extends RequestBase {
 

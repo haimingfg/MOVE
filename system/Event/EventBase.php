@@ -3,16 +3,16 @@
  * Abstract Event
  */
 namespace MOVE\Event;
-use MOVE\Operator\IOPerator;
+use MOVE\Operation\IOPerator;
 abstract class EventBase implements IEvent {
 
-	protected $_bindOperator = null;
+	protected $_bindOperation = null;
 
-	public function bind( IOperator $operator ) {
-		$this->_bindOperator = $operator; 
+	public function bind( IOperation $operator ) {
+		$this->_bindOperation = $operator; 
 	}
 
 	public function trigger(){
-		return $this->_bindOperator->execute();	
+		return $this->_bindOperation->execute();	
 	}
 }

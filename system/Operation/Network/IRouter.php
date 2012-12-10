@@ -3,7 +3,7 @@
  * this is the interface of router 
  *
  */
-namespace MOVE\Operator\Network;
+namespace MOVE\Operation\Network;
 
 interface IRouter {
 	

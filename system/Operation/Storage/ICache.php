@@ -3,7 +3,7 @@
  * This is Cache interface
  */
 
-namespace MOVE\Operator;
+namespace MOVE\Operation;
 
 interface ICache {
 	

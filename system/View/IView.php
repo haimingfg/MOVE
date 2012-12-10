@@ -21,7 +21,7 @@ interface IView {
 	 * connect Operation
 	 * @return mixed
 	 */
-	public function connectOperator(IOperator $operator);
+	public function connectOperation(IOperation $operator);
 
 
 	/**

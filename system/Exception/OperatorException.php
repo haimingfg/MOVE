@@ -9,5 +9,5 @@ namespace MOVE\Exception;
 
 use MOVE\Exception\MOVEException;
 
-class OperatorException extends MOVEException{
+class OperationException extends MOVEException{
 }
