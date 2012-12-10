@@ -1,4 +1,5 @@
 <?php
+exit();
 use MOVE\MOVE;
 use App\Event\HttpRequestEvent;
 require 'system/MOVE.php';
