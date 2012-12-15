@@ -2,8 +2,11 @@
 /**
  * Abstract Event
  */
+
 namespace MOVE\Event;
+
 use MOVE\Operation\IOPerator;
+
 abstract class EventBase implements IEvent {
 
 	protected $_bindOperation = null;

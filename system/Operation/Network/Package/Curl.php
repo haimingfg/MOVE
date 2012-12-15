@@ -11,7 +11,7 @@ class Curl extends RequestBase {
 		$this->_handler = curl_init();
 	}
 	
-	protected function requestPrepare(){
+	protected function requestPrepare() {
 		// set the curl_setopt
 		// judge which method
 		$url = $this->_url;

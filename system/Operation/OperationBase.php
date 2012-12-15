@@ -7,6 +7,7 @@ namespace MOVE\Operation;
 
 use MOVE\Operation\IOperation;
 use MOVE\Model\IModel;
+
 abstract class OperationBase implements IOperation{
 
 	/**

@@ -3,11 +3,11 @@
  * This file is loadClass that auto load class by namespace
  *
  * @author haiming
- *
  */
 namespace MOVE;
 
 use MOVE\Exception\MOVEException;
+
 class MOVE {
 	
 	public static $EXT = 'php';
@@ -34,11 +34,12 @@ class MOVE {
 
 			$fileAndClassNameWithExt = $fileAndClassName . '.' . self::$EXT;
 			if ( self::$coreDir === $firSlashName ) {
+				$fileAndClassNameWithExt = str_replace('MOVE/', '', $fileAndClassNameWithExt);
 				$filePath = self::$SYSPATH . '/' . $fileAndClassNameWithExt;
 			} else {
 				$filePath = self::$APPPATH . '/' . $fileAndClassNameWithExt;
 			}
-		
+			
 			if ( FALSE === self::loadFile($filePath) )
 				throw new MOVEException('The :className class can\'t find in path :path', 
 							array(
