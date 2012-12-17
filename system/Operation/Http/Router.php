@@ -4,8 +4,10 @@
  */
 
 namespace MOVE\Operation\Http;
-use MOVE\Operation\Netrwork\IRouter;
+use MOVE\Operation\Network\IRouter;
 use MOVE\Operation\IOperation;
+use MOVE\Helpers\Debug;
+
 class Router implements IRouter, IOperation{
 	const FOUND = true;
 	
@@ -19,7 +21,7 @@ class Router implements IRouter, IOperation{
 
 	private static $__instance = null;
 	
-	private static array $__originRules = null;
+	private static  $__originRules = null;
 
 	public static function init(){
 		if ( is_null( self::$__instance ) ) {
@@ -30,7 +32,6 @@ class Router implements IRouter, IOperation{
 	
 	public function setRules( array $routerRules = null ){
 		$this->filterRules($routerRules);
-		\MOVE\Helpers\Debug::p(self::$__originRules);
 		return $this;
 	}
 
@@ -49,8 +50,11 @@ class Router implements IRouter, IOperation{
 	public function analyze(){
 		if ( !is_null ( self::$__originRules ) ) {
 			$regularRules = array_keys(self::$__originRules);
-			
+			Debug::p($regularRules);	
+			$inputFileAfterPath = Request::init()->getInputFileAfterPath();
+			Debug::p($inputFileAfterPath);
 			foreach ( $regularRules as $rule ) {
+				
 			}	
 		}	
 
@@ -60,6 +64,6 @@ class Router implements IRouter, IOperation{
 
 	public function execute(){
 		$results = $this->analyze();
-		$HttpResponse::init()->setEvent($results)->execute();
+		Debug::p($results);
 	}
 }

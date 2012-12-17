@@ -1,12 +1,41 @@
 <?php
 namespace MOVE\Operation\Http;
+use MOVE\Helpers\Debug;
+abstract class RequestBase {
 
-abstract class RequestBase extends RequestParams {
-	
+	protected static $requestParams = array('GET', 'POST', 'COOKIE', 'SERVER', 'FILES');
+
 	protected static $pathSeperateStr = '/';
-	
-	public function __construct(){
-		parent::__construct();
+
+	public function __construct() {
+		$this->_GET = $_GET;
+		$this->_POST = $_POST;
+		$this->_COOKIE = $_COOKIE;
+		$this->_SERVER = $_SERVER;
+		$this->_FILES = $_FILES;
+	}
+
+	public function __call($name, $arguments) {
+		if (in_array($name, static::$requestParams)){
+			$internatParam = '_'.$name;
+		       	return $this->$internatParam;	
+		}
+		return null;
+	}
+
+	public function __get($name) {
+		$name = str_replace('_', '', $name);
+		if (in_array($name, static::$requestParams)){
+		       	return $this->$name;	
+		}
+		return null;
+	}
+
+	public function __set($name, $value) {
+		$name = str_replace('_', '', $name);
+		if (in_array($name, static::$requestParams)){
+		       	$this->$name = $value;	
+		}
 	}
 
 	public function getProtocol() {

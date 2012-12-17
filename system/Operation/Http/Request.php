@@ -7,14 +7,10 @@ namespace MOVE\Operation\Http;
 
 class Request extends RequestBase{	
 
-	private static $__instance = null;
-
-	public static function instance(){
-		if( is_null(self::$__instance) ) {
-			self::$__instance = new self();
-		}
-		
-		return self::$__instance;
+	public static function init() {
+		static $instance = null;
+		if (is_null($instance)) $instance = new self();
+	       	return $instance;	
 	}
 
 	public function __construct(){
