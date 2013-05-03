@@ -3,18 +3,21 @@
  * This file is MOVE debug class
  */
 
-namespace MOVE\Helpers;
+namespace HM\Helpers;
 
-class Debug {
+class Debug
+{
 	public static $isWebApp = true;
 	
 	public static $isDebug = false;
 
-	public static function getNewLineMark(){
+	public static function getNewLineMark()
+	{
 		return true === self::$isWebApp ? "<br/>": "\r\n";	
 	}
 
-	public static function p(){
+	public static function p()
+	{
 		$args = func_get_args();
 		if ( true === self::$isWebApp ) {
 			self::webDebug($args);
@@ -23,13 +26,15 @@ class Debug {
 		}
 	}
 
-	private static function webDebug($args){
+	public static function webDebug($args)
+	{
 		static $colorShemes = array (
 			'#E10057',
 			'#4076DA'
 		);
+		static $i = 0;
+		
 		echo '<pre>';
-		$i = 0;
 		foreach ($args as $arg) {
 			echo "<div style=\"color:{$colorShemes[$i]}\">";
 			var_dump($arg);	
