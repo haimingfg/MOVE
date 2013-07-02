@@ -47,15 +47,26 @@ function handleWhere($_where)
 {
 	$where = null;
 	if (!is_array($_where)) {
-		$where = preg_replace('/([^\s]+)\.?\s+=\s+([^\s+])/Ui', '`$1` = $2', $_where);
+		$where = preg_replace_callback('/([^\s\(]+)\s+?(in|=)\s+?(\(?[^\s|\(\)]+\)?)/i', 'handleStringWhere', $_where);
 	} else {
 		$_whereArr = array();
 		foreach ($_where as $field => $value) {
+			// filter field
+			$field = handleFieldOfWhere($field);
 			if (is_array($value)) {
-				$_whereArr[] = implode('', array('`', $field, '`', ' IN (\'', implode('\',\'', $value), '\')'));
+				$tmp = array();
+				foreach ($value as $_value) {
+					$tmp[] = handleValue($_value);
+					unset($_value);
+				}
+				unset($value);
+				$value = $tmp;
+				unset($tmp);
+				$value = ' IN (\''.implode('\',\'', $value).'\')';
 			} else {
-				$_whereArr[] = implode('', array('`', $field, '`', ' = \'', $value, '\''));
+				$value = ' = \''.handleValue($value).'\'';
 			}
+			$_whereArr[] = implode('', array($field, $value));
 		}
 		$where = implode(' AND ', $_whereArr);
 	}
@@ -63,10 +74,50 @@ function handleWhere($_where)
 	return $where;
 }
 
+function handleStringWhere($matches)
+{
+	$field = $matches[1];
+	$operator = strtoupper($matches[2]);
+	$value = $matches[3];
+	//p($value);
+	if ('IN' === $operator && preg_match('/\(([^\(\)]+)\)/', $value, $m)) {
+		$valArr = array();
+		foreach(explode(',', $m[1]) as $_value) {
+			$valArr[] = handleValue($_value);
+			unset($_value);
+		}
+		unset($m, $value);
+		$value = '(\''.implode('\',\'', $valArr).'\')';
+	} else {
+		$value = '\''.handleValue($value).'\'';
+	}
+	// 进行
+	return implode('', array(handleFieldOfWhere($field), ' ', $operator,' ', $value));
+}
+
+function handleValue($value)
+{
+	// clear front & end \'
+	$value = trim($value, '\'');
+	return $value;	
+}
+
+function handleFieldOfWhere($_field)
+{
+	if (preg_match('/`\w+`\./', $_field)) {
+		$str = $_field;
+	} elseif (preg_match('/([\w]+)\.([\w]+)/', $_field, $m)) {	
+		$str = "`{$m[1]}`.{$m[2]}";
+	} else {
+		$str = "`{$_field}`";
+	}
+	return $str;
+}
+
 // Test Where Array
-$str = array('a' => 1, 'b' => array(12,5));
-p(handleWhere($str));
+//$str = array('a' => 1, 'b' => array(12,5,'\''));
+//p(handleWhere($str));
 
 // Test Where String
-$str = 'a = 1 AND ad.ac = 1 or b in (1)';
+$str = 'a = \'1eeee\' AND (`ad`.ac = 1 or b in (1,\'2\'))';
 p(handleWhere($str));
