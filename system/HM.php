@@ -1,7 +1,7 @@
 <?php
 
 namespace HM;
-
+use HM\Operation as Operation;
 /**
  * This file is loadClass that auto load class by namespace
  *
@@ -62,6 +62,7 @@ class HM
 
 		array_push($filePathArr, $classPath);
 		$filePath = implode('/', $filePathArr).'.'.self::$EXT;
+		//var_dump($filePath.'<br/>');
 		return self::LoadFile($filePath);	
 	}
 
@@ -76,14 +77,17 @@ class HM
 	public static function LoadFile($filePath)
 	{
 		$realFilePath = realpath($filePath);
-		if (false === $realFilePath) {
-			return false;
-		} 
-		elseif (!in_array($realFilePath, self::$__loadFiles)) {
-			array_push(self::$__loadFiles, $realFilePath);
-		       	require $realFilePath;		
-			return true;
+		if (false !== $realFilePath && !isset(self::$__loadFiles[$realFilePath])) {
+				$contents = require $realFilePath;		
+				if (1 === $contents) {
+					self::$__loadFiles[$realFilePath] = 1;		
+					return true;
+				} else {
+					return $contents;	
+				}
 		}
+
+		return false;
 	}
 
 	public static function HandleError()
@@ -99,5 +103,16 @@ class HM
 	public static function init()
 	{
 		spl_autoload_register(array('self', 'LoadClass'));
+		self::LoadFile(self::$SYSPATH.'/Helpers/function.php');
+	}
+
+	/**
+	 * Load module path
+	 */
+	public static function SetModuleConfig(array $moduleConfig)
+	{	
+		if (!empty($moduleConfig)) {
+			Operation\Factory::setConfig($moduleConfig);
+		}
 	}
 }

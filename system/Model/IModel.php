@@ -7,9 +7,10 @@
  * @author haiming
  */
 
-namespace MOVE\Model;
+namespace HM\Model;
 
 
 interface IModel
 {
+	public function checkDataType();
 }

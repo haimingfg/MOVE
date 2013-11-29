@@ -11,22 +11,12 @@ class Debug
 	
 	public static $isDebug = false;
 
-	public static function getNewLineMark()
+	public static function GetNewLineMark()
 	{
 		return true === self::$isWebApp ? "<br/>": "\r\n";	
 	}
 
-	public static function p()
-	{
-		$args = func_get_args();
-		if ( true === self::$isWebApp ) {
-			self::webDebug($args);
-		} else {
-		
-		}
-	}
-
-	public static function webDebug($args)
+	public static function WebDebug($args)
 	{
 		static $colorShemes = array (
 			'#E10057',

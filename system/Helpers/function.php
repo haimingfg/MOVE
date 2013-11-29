@@ -6,10 +6,10 @@
 use HM AS Core;
 use HM\Helpers;
 
-if (! function_exists('p')) :
-	function p()
+if (! function_exists('DEBUG')) :
+	function DEBUG()
 	{
-		Helpers\Debug::webDebug(func_get_args());	
+		Helpers\Debug::WebDebug(func_get_args());	
 	}
 endif;
 

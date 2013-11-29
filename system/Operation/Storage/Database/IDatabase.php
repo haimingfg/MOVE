@@ -10,9 +10,9 @@ interface IDatabase
 {
 	public function connect();
 
-	public function changeDatabase();
+	public function changeDB($dbname = false);
 
-	public function query();
+	public function query($sql);
 
 	public function close();
 }
